@@ -1,4 +1,4 @@
-package com.hua.basic.chapter_2;
+package com.hua.basic.chapter2;
 
 /**
  * @author huazai
