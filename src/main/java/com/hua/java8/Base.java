@@ -1,5 +1,7 @@
 package com.hua.java8;
 
+import com.hua.java8.stream.Trader;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,6 +37,22 @@ public class Base {
             new Dish("pizza", true, 550, Dish.Type.OTHER),
             new Dish("prawns", false, 300, Dish.Type.FISH),
             new Dish("salmon", false, 450, Dish.Type.FISH)
+    );
+
+    public static List<Transaction> initTransaction(){
+        return transactions;
+    }
+    Trader raoul = new Trader("Raoul", "Cambridge");
+    Trader mario = new Trader("Mario","Milan");
+    Trader alan = new Trader("Alan","Cambridge");
+    Trader brian = new Trader("Brian","Cambridge");
+    private static List<Transaction> transactions = Arrays.asList(
+            new Transaction(new Trader("Brian","Cambridge"), 2011, 300),
+            new Transaction(new Trader("Raoul", "Cambridge"), 2012, 1000),
+            new Transaction(new Trader("Raoul", "Cambridge"), 2011, 400),
+            new Transaction(new Trader("Mario","Milan"), 2012, 710),
+            new Transaction(new Trader("Mario","Milan"), 2012, 700),
+            new Transaction(new Trader("Alan","Cambridge"), 2012, 950)
     );
 
 }
