@@ -6,6 +6,7 @@ import com.hua.java8.Dish;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author huazai
@@ -34,6 +35,13 @@ public class SimpleStream {
                 .sorted(Comparator.comparing(Dish::getCalories))
                 .map(Dish::getName)
                 .collect(Collectors.toList());
+
+        /**
+         * 一个stream流不能重复操作
+         */
+        Stream<Dish> stream = Base.initDish().stream();
+        stream.forEach(System.out::println);
+//        stream.forEach(System.out::println);
 
         System.out.println(less400);
 
