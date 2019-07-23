@@ -1,6 +1,7 @@
 package com.hua.java8.stream;
 
 import com.hua.java8.Base;
+import com.hua.java8.Trader;
 import com.hua.java8.Transaction;
 
 import java.util.Comparator;

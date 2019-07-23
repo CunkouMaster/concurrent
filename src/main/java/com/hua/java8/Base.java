@@ -1,7 +1,5 @@
 package com.hua.java8;
 
-import com.hua.java8.stream.Trader;
-
 import java.util.Arrays;
 import java.util.List;
 

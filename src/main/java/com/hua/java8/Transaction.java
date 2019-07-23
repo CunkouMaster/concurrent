@@ -1,7 +1,5 @@
 package com.hua.java8;
 
-import com.hua.java8.stream.Trader;
-
 /**
  * @author huazai
  * @date 2019/7/22 16:33

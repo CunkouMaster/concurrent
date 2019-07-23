@@ -1,4 +1,4 @@
-package com.hua.java8.stream;
+package com.hua.java8;
 
 /**
  * @author huazai
