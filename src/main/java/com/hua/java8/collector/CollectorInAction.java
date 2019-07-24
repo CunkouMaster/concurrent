@@ -6,6 +6,7 @@ import com.hua.java8.Dish;
 import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 /**
@@ -109,5 +110,28 @@ public class CollectorInAction {
                 .collect(Collectors.partitioningBy(Dish::isVegetarian));
         Optional.ofNullable(collect).ifPresent(System.out::println);
 
+        Map<Boolean, Double> collect1 = Base.initDish().stream()
+                .collect(Collectors.partitioningBy(Dish::isVegetarian, Collectors.averagingInt(Dish::getCalories)));
+        Optional.ofNullable(collect1).ifPresent(System.out::println);
+
+        //reducing
+        Base.initDish().stream()
+                .collect(
+                        Collectors.reducing(
+                                BinaryOperator.maxBy(
+                                        Comparator.comparing(Dish::getCalories)
+                                )
+                        )
+                ).ifPresent(System.out::println);
+
+        Integer resultReducing = Base.initDish().stream().map(Dish::getCalories)
+                .collect(Collectors.reducing(0, (c1, c2) -> c1 + c2));
+        System.out.println(resultReducing);
+
+        //summarizingInt
+        IntSummaryStatistics summarizingResult = Base.initDish().stream()
+                .collect(Collectors.summarizingInt(Dish::getCalories));
+        Optional.ofNullable(summarizingResult).ifPresent(System.out::println);
     }
+
 }
