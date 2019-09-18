@@ -4,9 +4,9 @@ package com.hua.basic.chapter5;
  * @author huazai
  * @date 2019/9/11 15:47
  */
-public class ThreadClose {
+public class ThreadClose2 {
     /**
-     * 开关方式关闭线程
+     * 打断方式关闭线程
      * @param args
      */
     public static void main(String[] args) {
@@ -19,24 +19,30 @@ public class ThreadClose {
             e.printStackTrace();
         }
 
-        worker.shutdown();
+        worker.interrupt();
 
     }
 
 
 
     public static class Worker extends Thread{
-        private volatile boolean start = true;
 
         @Override
         public void run() {
-            while (start){
+            while (true){
                 //do something
+                if(Thread.interrupted()){
+                    break;
+                }
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException e) {
+//                    break;//return的话就无法执行后续逻辑
+//                }
+                //--- 后续逻辑 ----
             }
         }
 
-        public void shutdown(){
-            this.start = false;
-        }
+
     }
 }
