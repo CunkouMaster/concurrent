@@ -11,6 +11,22 @@ public class ThreadClose3 {
      */
     public static void main(String[] args) {
 
+        ThreadService service = new ThreadService();
+        long start = System.currentTimeMillis();
+
+        service.execute(() -> {
+            //load a heavy resource
+            while (true) {
+
+            }
+        });
+
+        service.shutdown(10000);
+
+        long end = System.currentTimeMillis();
+
+        System.out.println(end - start);
+
 
     }
 
@@ -18,12 +34,12 @@ public class ThreadClose3 {
 
 class ThreadService{
 
-    private Thread execteThread;
+    private Thread excuteThread;
 
     private boolean finished = false;
 
     public void execute (Runnable task){
-        execteThread = new Thread(){
+        excuteThread = new Thread(){
             @Override
             public void run() {
                 Thread runner = new Thread(task);
@@ -41,12 +57,28 @@ class ThreadService{
             }
         };
 
-        execteThread.start();
+        excuteThread.start();
     }
 
 
     public void shutdown(long mills){
+        long time = System.currentTimeMillis();
+        while (!finished){
+            if(System.currentTimeMillis() - time >= mills){
+                System.out.println("任务超时！");
+                excuteThread.interrupt();
+                break;
+            }
 
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                System.out.println("执行线程被打断");
+                break;
+            }
+        }
+
+        finished = false;
     }
 
 
