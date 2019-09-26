@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.concurrent.TimeoutException;
 
 /**
- * 缺陷线程wait后其他线程可以notify
+ * 解决--线程wait后其他线程可以notify
  * @author huazai
  * @date 2019/9/24 16:08
  */
-public class BooleanLock implements Lock {
+public class BooleanLockV2 implements Lock {
 
     /*
      * the initValue is false indicated the lock is free
@@ -20,7 +20,9 @@ public class BooleanLock implements Lock {
 
     private Collection<Thread> blockedThread = new ArrayList<>();
 
-    public BooleanLock() {
+    private Thread currentThread;
+
+    public BooleanLockV2() {
         this.initValue = false;
     }
 
@@ -32,6 +34,7 @@ public class BooleanLock implements Lock {
         }
         blockedThread.remove(Thread.currentThread());
         this.initValue = true;
+        this.currentThread = Thread.currentThread();
 
     }
 
@@ -42,9 +45,11 @@ public class BooleanLock implements Lock {
 
     @Override
     public synchronized void unlock() {
-        this.initValue = false;
-        System.out.println("【" + Thread.currentThread().getName() + "】 release the lock monitor");
-        this.notifyAll();
+        if(currentThread == Thread.currentThread()){
+            this.initValue = false;
+            System.out.println("【" + Thread.currentThread().getName() + "】 release the lock monitor");
+            this.notifyAll();
+        }
     }
 
     @Override
