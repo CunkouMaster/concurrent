@@ -1,6 +1,7 @@
 package com.hua.basic.chapter8;
 
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Stream;
 
 /**
@@ -17,12 +18,15 @@ public class LockTest {
                 new Thread(() -> {
                     try {
 //                        booleanLockV1.lock();
-                        booleanLockV2.lock();
+//                        booleanLockV2.lock();
+                        booleanLockV2.lock(100);
                         Optional.of(Thread.currentThread().getName() + " get the lock")
                                 .ifPresent(System.out::println);
                         work();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    } catch (TimeoutException e) {
+                        Optional.of(Thread.currentThread().getName() + e.getMessage()).ifPresent(System.out::println);
                     } finally {
 //                        booleanLockV1.unlock();
                         booleanLockV2.unlock();
@@ -31,15 +35,15 @@ public class LockTest {
                 },name).start()
         );
 
-        Thread.sleep(100);
-        booleanLockV2.unlock();
+//        Thread.sleep(100);
+//        booleanLockV2.unlock();
 
     }
 
     private static void work() throws InterruptedException {
         Optional.of(Thread.currentThread().getName() + " is working ......")
                 .ifPresent(System.out::println);
-        Thread.sleep(5_000);
+        Thread.sleep(30_000);
     }
 
 

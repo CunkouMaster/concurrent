@@ -22,7 +22,7 @@ public class BooleanLockV2 implements Lock {
 
     private Thread currentThread;
 
-    public BooleanLockV2() {
+    BooleanLockV2() {
         this.initValue = false;
     }
 
@@ -39,7 +39,23 @@ public class BooleanLockV2 implements Lock {
     }
 
     @Override
-    public void lock(long mills) throws InterruptedException, TimeoutException {
+    public synchronized void lock(long mills) throws InterruptedException, TimeoutException {
+        if(mills <= 0){
+            lock();
+        }
+        long hasRemaining = mills;
+        long endTime = System.currentTimeMillis() + mills;
+        while (initValue) {
+            if(hasRemaining <= 0){
+                throw new TimeoutException("超时");
+            }
+            blockedThread.add(Thread.currentThread());
+            this.wait(mills);
+            hasRemaining = endTime - System.currentTimeMillis();
+            System.out.println(Thread.currentThread().getName() + " hasRemaining " + hasRemaining);
+        }
+        this.initValue = true;
+        this.currentThread = Thread.currentThread();
 
     }
 
