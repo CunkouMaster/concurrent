@@ -8,11 +8,15 @@ import java.util.List;
  * @author huazai
  * @date 2019/10/11 14:12
  */
-public class SimpleThreadPool2 {
+public class SimpleThreadPool3 extends Thread{
 
-    private final int size;
+    private int size;//线程池数量
     private final int queueSize;
     private final DiscardPolicy discardPolicy;
+
+    private int min;
+    private int max;
+    private int active;
 
     public int getSize() {
         return size;
@@ -22,7 +26,8 @@ public class SimpleThreadPool2 {
         return queueSize;
     }
 
-    private final static int DEFAULT_SIZE = 10;
+
+
 
     /**
      * 缓冲队列默认数量
@@ -42,6 +47,9 @@ public class SimpleThreadPool2 {
 
     private volatile boolean isDestroy = false;
 
+
+
+
     /**
      * 任务缓冲队列
      */
@@ -49,30 +57,57 @@ public class SimpleThreadPool2 {
 
     private final static List<WorkerTask> THREAD_QUEUE = new ArrayList<>();
 
-    public SimpleThreadPool2() {
-        this(DEFAULT_SIZE, DEFAULT_TASK_QUEUE_SIZE, DEFAULT_DISCARD_POLICY);
+    public SimpleThreadPool3() {
+        this(4,8,12, DEFAULT_TASK_QUEUE_SIZE, DEFAULT_DISCARD_POLICY);
     }
 
-    public SimpleThreadPool2(int size, int queueSize ,DiscardPolicy discardPolicy) {
-        this.size = size;
+    private SimpleThreadPool3(int min,int active,int max, int queueSize, DiscardPolicy discardPolicy) {
+        this.min = min;
+        this.active = active;
+        this.max = max;
         this.queueSize = queueSize;
         this.discardPolicy = discardPolicy;
         init();
+    }
+
+    @Override
+    public void run() {
+        while (!isDestroy) {
+            System.out.printf("=== pool#min:%d，active:%d，max:%d，current:%d，queueSize:%d ===\n",
+                    this.min,this.active,this.max,this.size,TASK_QUEUE.size());
+
+        }
     }
 
     /**
      * 初始化
      */
     private void init(){
-        for(int i=0;i<size;i++){
+        for(int i=0;i< this.min;i++){
             createWorkerTask();
         }
+        this.size = min;
+        this.start();
     }
 
     private void createWorkerTask(){
         WorkerTask task = new WorkerTask(GROUP,THREAD_PREFIX + (seq++));
         task.start();
         THREAD_QUEUE.add(task);
+    }
+
+    /**
+     * 拒绝策略
+     */
+    public interface  DiscardPolicy{
+        void discard() throws DiscardException;
+    }
+
+    static class DiscardException extends RuntimeException{
+
+        DiscardException(String message) {
+            super(message);
+        }
     }
 
     /**
@@ -121,20 +156,6 @@ public class SimpleThreadPool2 {
         System.out.println(" the thread pool disposed ");
     }
 
-
-    /**
-     * 拒绝策略
-     */
-    public interface  DiscardPolicy{
-        void discard() throws DiscardException;
-    }
-
-    static class DiscardException extends RuntimeException{
-
-        DiscardException(String message) {
-            super(message);
-        }
-    }
 
     private static class WorkerTask extends Thread {
 
