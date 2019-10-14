@@ -1,6 +1,7 @@
 package com.hua.basic.chapter11;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,21 @@ public class SimpleThreadPool3 extends Thread{
         return queueSize;
     }
 
+    public int getMin() {
+        return min;
+    }
 
+    public int getMax() {
+        return max;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public boolean isDestroy(){
+        return this.isDestroy;
+    }
 
 
     /**
@@ -75,6 +90,44 @@ public class SimpleThreadPool3 extends Thread{
         while (!isDestroy) {
             System.out.printf("=== pool#min:%d，active:%d，max:%d，current:%d，queueSize:%d ===\n",
                     this.min,this.active,this.max,this.size,TASK_QUEUE.size());
+            try {
+                Thread.sleep(2000);
+                if(TASK_QUEUE.size() > active && size < active){
+                    for(int i=size ; i< active; i++){
+                        createWorkerTask();
+                    }
+                    System.out.println(" the pool incremented to active");
+                    size = active;
+                } else if(TASK_QUEUE.size() > max && size < max){
+                    for(int i=size ; i< max; i++){
+                        createWorkerTask();
+                    }
+                    System.out.println(" the pool incremented to max");
+                    size = max;
+                }
+
+                if(TASK_QUEUE.isEmpty() && size > active){
+                    System.out.println("===== reduce =====");
+                    synchronized (THREAD_QUEUE) {
+                        int releaseSize = size - active;
+                        for(Iterator<WorkerTask> it = THREAD_QUEUE.iterator(); it.hasNext();){
+                            if(releaseSize <= 0){
+                                break;
+                            }
+                            WorkerTask task = it.next();
+                            task.close();
+                            task.interrupt();
+                            it.remove();
+                            releaseSize--;
+
+                        }
+                        size = active;
+                    }
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         }
     }
