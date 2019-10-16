@@ -1,4 +1,4 @@
-package com.hua.designPattern.singleton;
+package com.hua.designPattern.singleton_1;
 
 /**
  * Holder模式

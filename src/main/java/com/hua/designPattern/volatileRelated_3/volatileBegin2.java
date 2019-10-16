@@ -1,4 +1,4 @@
-package com.hua.designPattern.volatileRelated;
+package com.hua.designPattern.volatileRelated_3;
 
 /**
  * @author huazai

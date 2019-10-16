@@ -1,4 +1,4 @@
-package com.hua.designPattern.waitSet;
+package com.hua.designPattern.waitSet_2;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
