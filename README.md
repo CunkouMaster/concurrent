@@ -31,7 +31,7 @@
         3、Single Thread Execution模式
         4、不可变对象及线程安全对象
         5、Guraded Suspension模式（保护性暂挂模式）
-        6、Balking模式
+        6、Balking模式：当现在不适合这个操作，或者没有必要进行这个操作时，就直接放弃而回去，这就是Balking Pattern（不使用线程间通讯）
         7、Producer-Consumer设计模式（生产者-消费者）
         8、读写锁设计模式
         9、Thread-Per-Message模式
