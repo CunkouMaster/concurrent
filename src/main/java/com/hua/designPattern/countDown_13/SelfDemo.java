@@ -1,22 +1,17 @@
 package com.hua.designPattern.countDown_13;
 
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
 import java.util.stream.IntStream;
 
 /**
  * @author huazai
- * @date 2019-11-30 11:17
+ * @date 2019/12/18 16:12
  */
-public class JDKCountDown {
-    /*
-        并发执行，等所有线程执行完在进行接下来的任务
-     */
-
+public class SelfDemo {
     private static final Random random = new Random(System.currentTimeMillis());
 
     public static void main(String[] args) throws InterruptedException {
-        final CountDownLatch latch = new CountDownLatch(5);
+        final SelfCountDown latch = new SelfCountDown(5);
         System.out.println("######## 准备多线程处理任务 开始第一阶段########");
         //the first phase
         IntStream.rangeClosed(1,5).forEach(i -> {
@@ -27,7 +22,7 @@ public class JDKCountDown {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                latch.countDown();
+                latch.down();
             },String.valueOf(i)).start();
         });
         latch.await();
