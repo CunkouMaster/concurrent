@@ -34,10 +34,13 @@
         6、Balking模式：当现在不适合这个操作，或者没有必要进行这个操作时，就直接放弃而回去，这就是Balking Pattern（不使用线程间通讯）
         7、Producer-Consumer设计模式（生产者-消费者）
         8、读写锁设计模式
-        9、Thread-Per-Message模式
+        9、Thread-Per-Message模式：为每一个请求新分配一个线程，由这个线程来执行处理。
         10、Worker模式
         11、Future设计模式
-        12、Two-Phase Termination模式（两阶段终止模式）
+        12、Two-Phase Termination模式（两阶段终止模式）：
+            通过将停止线程这个动作分解为【准备阶段】和【执行阶段】这两个阶段，提供了一种通用的用于优雅地停止线程的方法。
+            准备阶段--主要动作是“通知”目标线程(欲停止的线程)准备进行停止（进行一些操作，如清理）。
+            执行阶段--主要动作是检查准备阶段所设置的线程停止标志和信号，在此基础上决定线程停止的时机，并进行适当的清理操作。
         13、Thread-Specific-Storage模式
         14、Active-Object接受异步消息的主动
     三、JDK并发包(concurrent)
