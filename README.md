@@ -35,7 +35,9 @@
         7、Producer-Consumer设计模式（生产者-消费者）
         8、读写锁设计模式
         9、Thread-Per-Message模式：为每一个请求新分配一个线程，由这个线程来执行处理。
-        10、Worker模式
+        10、worker-thread design pattern模式：
+            基本内容是：有一个流水线（channel），流水线一端有客户线程client，另一端有工人线程worker，客户不断把新的任务（request）放入流水线，
+            工人在另一头获得任务，并执行，客户和工人的数量可多可少
         11、Future设计模式
         12、Two-Phase Termination模式（两阶段终止模式）：
             通过将停止线程这个动作分解为【准备阶段】和【执行阶段】这两个阶段，提供了一种通用的用于优雅地停止线程的方法。
