@@ -30,8 +30,14 @@ public class Channel {
     }
 
     private void init() {
-
-
+        for(int i=0 ; i<workerPool.length ; i++){
+            workerPool[i] = new WorkerThread("Worker-" + i,this);
+        }
 
     }
+
+    public void startWorkers(){
+
+    }
+
 }

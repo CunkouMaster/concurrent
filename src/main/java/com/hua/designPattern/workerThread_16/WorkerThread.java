@@ -5,4 +5,8 @@ package com.hua.designPattern.workerThread_16;
  * @date 2019/12/30 14:36
  */
 public class WorkerThread {
+
+
+    public WorkerThread(String name, Channel channel) {
+    }
 }
