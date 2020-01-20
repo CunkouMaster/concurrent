@@ -21,7 +21,11 @@
                  f、启动类，如hello world
         被动使用
     
-    类加载器（JDK自带）详细介绍
+    3、类加载器（JDK自带）详细介绍：
+        BootStrapClassLoader    根类加载器：最基本的类加载器，本地语言编写，不需要被加载，直接被嵌套在虚拟机中（是虚拟机自身的一部分）
+        ExtClassLoader          扩展类加载器
+        AppClassLoader          系统类加载器
+        
     类加载的父委托机制
     命名空间&运行时包
     创建自定义类加载器
