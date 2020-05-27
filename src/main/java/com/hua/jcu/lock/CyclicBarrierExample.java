@@ -1,7 +1,6 @@
 package com.hua.jcu.lock;
 
 import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 
 /**
@@ -10,11 +9,17 @@ import java.util.concurrent.CyclicBarrier;
  */
 public class CyclicBarrierExample {
 
-    public static void main(String[] args) throws InterruptedException {
-        final CyclicBarrier barrier = new CyclicBarrier(2);
+    public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
+        final CyclicBarrier barrier = new CyclicBarrier(2, new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("all finish");
+            }
+        });
+
         new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
                 System.out.println("T1 finish");
                 barrier.await();
                 System.out.println("T1 other finish");
@@ -38,6 +43,8 @@ public class CyclicBarrierExample {
             }
         }).start();
 
+//        barrier.await();
+//        System.out.println("all finish");
 //        Thread.currentThread().join();
 
     }
