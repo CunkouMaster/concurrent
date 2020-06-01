@@ -101,7 +101,7 @@
         4、CyclicBarrier
             CountDownLatch不能reset，而CyclicBarrier是可以循环使用的；
             CountDownLatch线程之间互不关心，CyclicBarrier线程之间必须等到同一个点才去执行某个动作；
-        5、Exchanger
+        5、Exchanger -- 线程间交换数据的工具，用于两个线程间，可重复交换
         6、ExecutorService
         7、Phaser
         8、显示锁（ReentrantLock、读写锁ReadWriteLock、StampedLock）
