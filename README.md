@@ -80,7 +80,7 @@
         6、读写锁设计模式 
         7、Immutable Object不可变对象及线程安全对象：类（final）、属性（priva final）、没有write只有read
         8、Future设计模式
-        9、Guraded Suspension模式（保护性暂挂模式）：当现在并不适合马上执行某个操作时，就要求想要执行该操作的线程等待。
+        9、Guraded Suspension模式（保护性暂挂模式）：当现在并不适合马上执行某个操作时，就要求想要执行该操作的线程等 待。
         10、Thread-Specific-Storage模式是一种即使只有一个入口，也会在内部为每个线程分配特有的储存空间的模式（典型Threadlocal）
         11、Balking模式：当现在不适合这个操作，或者没有必要进行这个操作时，就直接放弃而回去，这就是Balking Pattern（不使用线程间通讯）
         12、Producer-Consumer设计模式（生产者-消费者）
@@ -95,20 +95,31 @@
             工人在另一头获得任务，并执行，客户和工人的数量可多可少
         17、Active-Object接受异步消息的主动
     三、JDK并发包(concurrent)
-        1、 原子类
-        2、Unsafe
-        3、CountDownLatch
-        4、CyclicBarrier
-            CountDownLatch不能reset，而CyclicBarrier是可以循环使用的；
-            CountDownLatch线程之间互不关心，CyclicBarrier线程之间必须等到同一个点才去执行某个动作；
-        5、Exchanger -- 线程间交换数据的工具，用于两个线程间，可重复交换
-        6、ExecutorService
-        7、Phaser
-        8、显示锁（ReentrantLock、读写锁ReadWriteLock、StampedLock）
-        9、Condition
-        10、Semaphore信号量
-        11、ForkJoin框架
-        12、并发容器
-        13、CompletableFuture
-        14、自定义并发类
+        1、原子类型
+            Atomic相关
+            Unsafe
+        2、并发工具包
+            CountDownLatch 倒计时器
+            CyclicBarrier 循环栅栏
+                CountDownLatch不能reset，而CyclicBarrier是可以循环使用的；
+                CountDownLatch线程之间互不关心，CyclicBarrier线程之间必须等到同一个点才去执行某个动作；
+            Exchanger 数据交换 -- 线程间交换数据的工具，用于两个线程间，可重复交换
+            Semaphore 信号量
+                Semaphore 就相当于一个许可证，线程需要先通过 acquire 方法获取该许可证，该线程才能继续往下执行，否则只能在该方法出阻塞等待。
+                当执行完业务功能后，需要通过release()方法将许可证归还，以便其他线程能够获得许可证继续执行。
+            Phaser
+            显示锁（ReentrantLock、读写锁ReadWriteLock、StampedLock）
+            Condition
+            ForkJoin框架
+        3、Executors框架
+            Executor
+            ThreadPoolExecutor
+            Future&Callable
+            CompletionService
+            ScheduledExecutorService
+            ExecutorService
+            ThreadFactory
+            CompletableFuture
+        4、并发集合
+
         

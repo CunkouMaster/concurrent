@@ -1,4 +1,4 @@
-package com.hua.jcu.lock;
+package com.hua.jcu.tool;
 
 import java.util.concurrent.Exchanger;
 
