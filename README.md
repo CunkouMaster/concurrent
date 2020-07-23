@@ -127,5 +127,19 @@
             ThreadFactory
             CompletableFuture
         4、并发集合
+            阻塞队列：
+                ArrayBlockingQueue 一个由数组结构组成的有界阻塞队列
+                    add(E e) : 添加成功返回true，失败抛IllegalStateException异常
+                    offer(E e) : 成功返回 true，如果此队列已满，则返回 false。
+                    put(E e) :将元素插入此队列的尾部，如果该队列已满，则一直阻塞。
+                    
+                    remove(Object o) :移除指定元素,成功返回true，失败返回false
+                    poll() : 获取并移除此队列的头元素，若队列为空，则返回 null
+                    take()：获取并移除此队列头元素，若没有元素则一直阻塞。
+                    
+                    element() ：获取但不移除此队列的头元素，没有元素则抛异常
+                    peek() :获取但不移除此队列的头；若队列为空，则返回 null。
+                    
+                PriorityBlockingQueue 一个支持优先级排序的无界阻塞队列
 
         
