@@ -140,6 +140,10 @@
                     element() ：获取但不移除此队列的头元素，没有元素则抛异常
                     peek() :获取但不移除此队列的头；若队列为空，则返回 null。
                     
-                PriorityBlockingQueue 一个支持优先级排序的无界阻塞队列
+                PriorityBlockingQueue 一个支持优先级排序的无界阻塞队列。数据结构为二叉堆。
+                    插入队列的对象不可是null值，同时必须是可比较大小的（comparable），否则报 ClassCastException 异常。
+                    插入操作不会 block，add(E e)、put(E e)、offer(E e)三个方法等价
+                
+                LinkedBlockingQueue 一个由链表结构组成的有界阻塞队列
 
         
