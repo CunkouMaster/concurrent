@@ -145,5 +145,16 @@
                     插入操作不会 block，add(E e)、put(E e)、offer(E e)三个方法等价
                 
                 LinkedBlockingQueue 一个由链表结构组成的有界阻塞队列
+                    offer：队列满了，直接返回false。
+                    add：虽然内部也调用了offer方法，但是队列满了，会抛出异常。
+                    put：线程会阻塞住，等待唤醒。
+                    
+                    take：当队列为空，会阻塞当前线程，直到被唤醒。会进行出队操作，移除获得的节点。
+                    poll：当队列为空，直接返回null。会进行出队操作，移除获得的节点。
+                    peek：当队列为空，直接返回null。不会移除节点。
+                    
+                SynchronousQueue 一个不存储元素的阻塞队列。
+                
+                DelayQueue 一个使用优先级队列实现的无界阻塞队列。
 
         
