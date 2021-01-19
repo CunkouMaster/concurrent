@@ -33,7 +33,7 @@ public class LockFreeQueue<E> {
         Node<E> newNode = new Node<>(e);
         Node<E> previousNode = tail.getAndSet(newNode);
         previousNode.next = newNode;
-        //size.incrementAndGet();
+        size.incrementAndGet();
     }
 
     public E removeFirst() {
@@ -49,7 +49,7 @@ public class LockFreeQueue<E> {
             valueNode.element = null;
         }
 
-        //size.decrementAndGet();
+        size.decrementAndGet();
         return value;
     }
 
@@ -86,7 +86,7 @@ public class LockFreeQueue<E> {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                queue.addLast(System.nanoTime());
+                queue.addLast(System.nanoTime()+l+counter);
             }
         }).forEach(service::submit);
 
@@ -99,7 +99,9 @@ public class LockFreeQueue<E> {
                     e.printStackTrace();
                 }
                 Long value = queue.removeFirst();
-                if (value == null) continue;
+                if (value == null) {
+                    continue;
+                }
                 counter--;
                 System.out.println(value);
                 data.put(value, new Object());
@@ -109,8 +111,9 @@ public class LockFreeQueue<E> {
         service.shutdown();
         service.awaitTermination(1, TimeUnit.HOURS);
 
-        System.out.println(data.size());
         System.out.println("=================");
+        System.out.println(queue.size);
+        System.out.println(data.size());
         System.out.println(data.keys());
     }
 }
